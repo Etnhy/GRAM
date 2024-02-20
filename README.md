@@ -1,4 +1,6 @@
 first - docker-compose build
+
+
 second - start GRAM
 
 
