@@ -9,10 +9,10 @@ Request:
 1. register user - [POST] - http://localhost:8080/user
 
 Body request:
-  login: String
-  email: String
-  password: String
-  name: String
+  login: String,
+  email: String,
+  password: String,
+  name: String,
   age: Int
 
 
