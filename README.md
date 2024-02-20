@@ -19,7 +19,7 @@ Body request:
 
 
 2. get all users - [GET] - http://localhost:8080/user/all
-3. authorization user - http://localhost:8080/user/auth
+3. basic authorization user - http://localhost:8080/user/auth
 body: login:String, password:String
 
 
