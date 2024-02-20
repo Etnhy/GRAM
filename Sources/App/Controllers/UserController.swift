@@ -13,22 +13,21 @@ struct UserController: RouteCollection {
 
         let group = routes.grouped("\(User.schema)")
         group.post(use: createHandler)
+        group.get("all", use: getAllusers)
     }
     
     private func createHandler(_ req: Request) async throws -> User.Public {
-        
         let user = try req.content.decode(User.self)
-
         if (try  await User.query(on: req.db)
             .filter(\.$login == user.login)
             .first()) != nil {
-            throw Abort(.conflict,reason: "Пользователь с таким логином уже зарегистрирован")
+            throw Abort(.conflict,reason: "A user with this login is already registered")
         }
         
         if (try await User.query(on: req.db)
             .filter(\.$email == user.email)
             .first()) != nil {
-            throw Abort(.conflict, reason: "Email already used")
+            throw Abort(.conflict, reason: "A user with this email is already registered")
         }
             
         user.password = try Bcrypt.hash(user.password)
@@ -36,5 +35,9 @@ struct UserController: RouteCollection {
         return user.convertToPublic()
     }
     
+    private func getAllusers(_ req: Request) async throws -> [User.Public] {
+        let users = try await User.query(on: req.db).all()
+        return users.map {$0.convertToPublic()}
+    }
     
 }

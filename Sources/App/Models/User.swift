@@ -20,11 +20,8 @@ final class User: Model, Content {
     @ID var id: UUID?
     @Field(key: "login") var login: String
     @Field(key: "email") var email: String
-    
     @Field(key: "password") var password: String
-    
     @Field(key: "name") var name: String
-
     @Field(key: "age") var age: Int
     @Field(key: "hobby") var hobby: String
     
